@@ -1,4 +1,4 @@
-import { CompletedSubtasksType } from '../components/tasks';
+import { TCompletedSubtasks } from '../components/tasks';
 
 export interface TaskInterface {
   belongsToId: string;
@@ -10,7 +10,7 @@ export interface TaskInterface {
 
 export interface TaskProps {
   task: TaskInterface;
-  completedSubtasks: CompletedSubtasksType;
+  completedSubtasks: TCompletedSubtasks;
   getTasks: () => Promise<void>;
   deleteTask: (taskId: string) => Promise<void>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;

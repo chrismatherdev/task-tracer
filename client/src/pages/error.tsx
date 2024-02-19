@@ -1,4 +1,4 @@
-import { Title, Text, Button, Container, Group } from '@mantine/core';
+import { Box, Button, Container, Group, Title, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import classes from '../styles/Error.module.css';
 
@@ -10,9 +10,9 @@ const ErrorPage = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <Container>
-        <div className={classes.label}>Uh-oh</div>
+        <Box className={classes.label}>Uh-oh</Box>
         <Title className={classes.title}>Something bad just happened...</Title>
         <Text size='lg' ta='center' className={classes.description}>
           Our servers could not handle your request. Please try refreshing your page.
@@ -23,7 +23,7 @@ const ErrorPage = () => {
           </Button>
         </Group>
       </Container>
-    </div>
+    </Box>
   );
 };
 

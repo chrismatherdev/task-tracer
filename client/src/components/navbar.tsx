@@ -11,7 +11,6 @@ const Navbar = () => {
   const dark = colorScheme === 'dark';
 
   const onButtonClick = (route: string) => {
-    console.log(route, 'route');
     if (route === 'login') {
       navigate('/login');
     } else if (route === 'register') {

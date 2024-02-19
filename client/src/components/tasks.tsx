@@ -7,7 +7,7 @@ import { addNewTask, deleteTask, fetchTasks } from '../api/tasks';
 import { fetchSubtasks } from '../api/subtasks';
 import { useNavigate } from 'react-router-dom';
 
-export type CompletedSubtasksType = {
+export type TCompletedSubtasks = {
   [taskId: string]: {
     completed: number;
     total: number;
@@ -19,7 +19,7 @@ const Tasks = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const [tasks, setTasks] = useState<TaskInterface[]>([]);
-  const [completedSubtasks, setCompletedSubtasks] = useState<CompletedSubtasksType>({});
+  const [completedSubtasks, setCompletedSubtasks] = useState<TCompletedSubtasks>({});
 
   const newTask = {
     title: '',
@@ -45,7 +45,7 @@ const Tasks = () => {
       } = {};
 
       await Promise.all(
-        taskRes.data.map(async (task: any) => {
+        taskRes.data.map(async (task: TaskInterface) => {
           const subtaskRes = await fetchSubtasks(user, task);
           const completedCount = subtaskRes.data.filter((subtask: any) => subtask.completed).length;
           const totalCount = subtaskRes.data.length;
@@ -61,7 +61,7 @@ const Tasks = () => {
     setLoading(false);
   };
 
-  const onAddTask = async (event?: any) => {
+  const onAddTask = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event?.preventDefault();
 
     try {
@@ -99,7 +99,7 @@ const Tasks = () => {
 
   return (
     <Box p={50}>
-      <Button mb={'15px'} onClick={() => onAddTask()} disabled={tasks.length >= 8} fullWidth>
+      <Button mb={'15px'} onClick={(event) => onAddTask(event)} disabled={tasks.length >= 8} fullWidth>
         Add a new task
       </Button>
       {loading && (

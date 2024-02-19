@@ -5,15 +5,12 @@ import { useAuthContext } from '../hooks/use-auth';
 import { useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true);
-
     if (user?.token) {
-      console.log(user.token, 'user token');
       navigate('/dashboard');
     }
 

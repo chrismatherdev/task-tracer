@@ -7,8 +7,6 @@ export const getSubtasks = async (req, res) => {
     },
   });
 
-  console.log(subtasks, 'subtasks!');
-
   res.json({ data: subtasks });
 };
 
@@ -21,8 +19,6 @@ export const createSubtask = async (req, res, next) => {
         taskId: req.body.taskId,
       },
     });
-
-    console.log(subtask, 'subtask');
 
     res.json({ subtask });
   } catch (e) {

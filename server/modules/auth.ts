@@ -12,9 +12,7 @@ export const hashPassword = (password) => {
 };
 
 export const createJWT = (user) => {
-  console.log('jwt');
   const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET);
-  console.log(token, 'token');
   return token;
 };
 

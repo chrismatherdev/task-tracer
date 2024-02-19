@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/use-auth';
 
 const Login = () => {
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { dispatch, user } = useAuthContext();
 
@@ -32,15 +32,19 @@ const Login = () => {
 
     try {
       setLoading(true);
-      const response = await login(data);
-      localStorage.setItem('user', JSON.stringify(response));
-      dispatch({ type: 'LOGIN', payload: response });
-      navigate('/dashboard');
+      onSuccess(data);
     } catch (error) {
       setError('Incorrect username or password. Please try again.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const onSuccess = async (data: LoginData) => {
+    const response = await login(data);
+    localStorage.setItem('user', JSON.stringify(response));
+    dispatch({ type: 'LOGIN', payload: response });
+    navigate('/dashboard');
   };
 
   useEffect(() => {

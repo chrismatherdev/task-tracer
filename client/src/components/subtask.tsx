@@ -25,6 +25,12 @@ const Subtask: React.FC<SubtaskProps> = ({ task, subtaskData, deleteSubtask, get
     backgroundColor = 'var(--mantine-color-green-light)';
   }
 
+  const resetTitle = () => {
+    setPrevTitle('');
+    setEditing(false);
+    setLoading(false);
+  };
+
   const onEditing = () => {
     setEditing(true);
     console.log(subtaskData.title, 'subtaskData.title');
@@ -40,22 +46,17 @@ const Subtask: React.FC<SubtaskProps> = ({ task, subtaskData, deleteSubtask, get
         navigate('/error');
       }
     } else if (taskData.title === prevTitle) {
-      setPrevTitle('');
-      setEditing(false);
-      setLoading(false);
+      resetTitle();
       return;
     }
 
     await getSubtasks();
-
-    setPrevTitle('');
-    setEditing(false);
-    setLoading(false);
+    resetTitle();
   };
 
   const onComplete = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event?.preventDefault();
-    console.log(task, 'onComplete of task');
+    event.preventDefault();
+
     const updatedTaskData = {
       title: task.title,
       completed: !task.completed,
@@ -76,9 +77,7 @@ const Subtask: React.FC<SubtaskProps> = ({ task, subtaskData, deleteSubtask, get
   };
 
   useEffect(() => {
-    console.log(task, 'task');
     if (task?.title !== '') {
-      console.log('title!');
       setTaskData((prevData) => ({
         ...prevData,
         title: task.title,
@@ -86,7 +85,6 @@ const Subtask: React.FC<SubtaskProps> = ({ task, subtaskData, deleteSubtask, get
     }
 
     if (task?.completed !== false) {
-      console.log('completed!');
       setTaskData((prevData) => ({
         ...prevData,
         completed: task.completed,

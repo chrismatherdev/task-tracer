@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/use-auth';
 
 const Register = () => {
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { dispatch, user } = useAuthContext();
 
@@ -25,7 +25,7 @@ const Register = () => {
     },
 
     validate: {
-      password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
+      password: (val) => val.length <= 6 && 'Password should include at least 6 characters',
     },
   });
 
@@ -34,15 +34,19 @@ const Register = () => {
 
     try {
       setLoading(true);
-      const response = await register(data);
-      localStorage.setItem('user', JSON.stringify(response));
-      dispatch({ type: 'LOGIN', payload: response });
-      navigate('/dashboard');
+      onSuccess(data);
     } catch (error: any) {
       setError('This user already exists. Please register with a different username.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const onSuccess = async (data: LoginData) => {
+    const response = await register(data);
+    localStorage.setItem('user', JSON.stringify(response));
+    dispatch({ type: 'LOGIN', payload: response });
+    navigate('/dashboard');
   };
 
   useEffect(() => {

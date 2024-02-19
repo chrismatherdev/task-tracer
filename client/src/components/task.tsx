@@ -43,6 +43,12 @@ const Task: React.FC<TaskProps> = ({ task, completedSubtasks, getTasks, deleteTa
     }));
   };
 
+  const resetTitle = () => {
+    setPrevTitle('');
+    setEditing(false);
+    setLoading(false);
+  };
+
   const onEditing = () => {
     setEditing(true);
     setPrevTitle(taskData.title);
@@ -57,17 +63,12 @@ const Task: React.FC<TaskProps> = ({ task, completedSubtasks, getTasks, deleteTa
         console.error('Error making API call:', error);
       }
     } else if (taskData.title === prevTitle) {
-      setPrevTitle('');
-      setEditing(false);
-      setLoading(false);
+      resetTitle();
       return;
     }
 
     await getTasks();
-
-    setPrevTitle('');
-    setEditing(false);
-    setLoading(false);
+    resetTitle();
   };
 
   useEffect(() => {

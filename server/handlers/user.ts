@@ -7,7 +7,6 @@ export const login = async (req, res) => {
       username: req.body.username,
     },
   });
-  console.log(user, 'user1111');
 
   const isValid = await comparePasswords(req.body.password, user.password);
 
@@ -28,8 +27,6 @@ export const login = async (req, res) => {
 };
 
 export const register = async (req, res, next) => {
-  console.log(req.body, 'req body');
-
   try {
     const user = await prisma.user.create({
       data: {
@@ -39,8 +36,6 @@ export const register = async (req, res, next) => {
         password: await hashPassword(req.body.password),
       },
     });
-
-    console.log(user, 'user - prisma');
 
     const token = createJWT(user);
     res.json({ id: user.id, token });

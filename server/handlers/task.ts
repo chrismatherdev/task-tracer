@@ -7,8 +7,6 @@ export const getTasks = async (req, res) => {
     },
   });
 
-  console.log(tasks, 'tasks');
-
   res.json({ data: tasks });
 };
 
@@ -29,7 +27,6 @@ export const createTask = async (req, res, next) => {
 };
 
 export const removeTask = async (req, res, next) => {
-  console.log(req.body, 'req body');
   try {
     const taskId = req.body.id;
 
