@@ -21,6 +21,8 @@ const Tasks = () => {
   const [tasks, setTasks] = useState<TaskInterface[]>([]);
   const [completedSubtasks, setCompletedSubtasks] = useState<TCompletedSubtasks>({});
 
+  console.log(tasks, 'tasks!');
+
   const newTask = {
     title: '',
     completed: false,
@@ -62,7 +64,7 @@ const Tasks = () => {
   };
 
   const onAddTask = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event?.preventDefault();
+    event.preventDefault();
 
     try {
       setLoading(true);
